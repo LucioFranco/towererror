@@ -6,8 +6,9 @@ use tower::{retry::Policy, Service, ServiceBuilder, ServiceExt};
 fn main() {
     let client = Client::new();
 
-    let service = ServiceBuilder::new()
+    let mut service = ServiceBuilder::new()
         .retry(RetryPolicy {})
+        // .buffer(1)
         .rate_limit(1, Duration::from_secs(1))
         .service(client);
 
